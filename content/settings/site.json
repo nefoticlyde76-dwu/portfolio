@@ -4,24 +4,54 @@
   "logo": "",
   "hero_kicker": "Information Systems",
   "hero_heading": "Clyde Nefoti",
-  "hero_summary": "Web development, systems work, IT support, and graphic design from Madang, Papua New Guinea.",
+  "hero_summary": "Web development, systems work, IT support, and graphic design",
   "navigation": [
-    { "label": "About", "href": "/about/" },
-    { "label": "Projects", "href": "/projects/" },
-    { "label": "Experience", "href": "/experience/" },
-    { "label": "Design", "href": "/design/" },
-    { "label": "Contact", "href": "/contact/" }
+    {
+      "label": "About",
+      "href": "/about/"
+    },
+    {
+      "label": "Projects",
+      "href": "/projects/"
+    },
+    {
+      "label": "Experience",
+      "href": "/experience/"
+    },
+    {
+      "label": "Design",
+      "href": "/design/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact/"
+    }
   ],
   "footer_links": [
-    { "label": "Skills", "href": "/skills/" },
-    { "label": "Education", "href": "/education/" },
-    { "label": "Certificates", "href": "/certificates/" },
-    { "label": "Contact", "href": "/contact/" }
+    {
+      "label": "Skills",
+      "href": "/skills/"
+    },
+    {
+      "label": "Education",
+      "href": "/education/"
+    },
+    {
+      "label": "Certificates",
+      "href": "/certificates/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact/"
+    }
   ],
   "footer_text": "Portfolio of Clyde Nefoti. Content is edited in the repository and published as a static site.",
   "contact_email": "nefoticlyde76@gmail.com",
   "social_links": [
-    { "label": "GitHub", "url": "https://github.com/nefoticlyde76-dwu" }
+    {
+      "label": "GitHub",
+      "url": "https://github.com/nefoticlyde76-dwu"
+    }
   ],
   "seo_title": "Clyde Nefoti | Information Systems and web development",
   "seo_description": "Portfolio of Clyde Nefoti in Madang, covering information systems, web development, IT support, and graphic design.",
