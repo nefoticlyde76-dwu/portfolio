@@ -6,17 +6,24 @@
   "main_image": "/uploads/projects/telehealth-consultation-homepage.png",
   "main_image_alt": "Public homepage of the MBPHA TeleHealth consultation website",
   "gallery": [],
-  "technologies": ["PHP 8 (MVC)", "MySQL", "Bootstrap 5", "JavaScript", "Git", "GitHub", "DigitalOcean"],
+  "technologies": [
+    "PHP 8 (MVC)",
+    "MySQL",
+    "Bootstrap 5",
+    "JavaScript",
+    "Git",
+    "GitHub",
+    "DigitalOcean"
+  ],
   "category": "Final-year capstone",
   "role": "Final-year project",
   "year": "2026",
   "status": "Deployed",
-  "external_url": "https://mbphatelehealth.com",
+  "external_url": "",
   "github_url": "https://github.com/nefoticlyde76-dwu/Telehealth_Consultation",
   "featured": true,
   "published": true,
   "visibility": "public",
-  "display_order": 1,
   "features": [
     "Developed and deployed a web-based teleconsultation and appointment management system for the Milne Bay Provincial Health Authority, serving patients, doctors and administrators.",
     "Designed and implemented a MySQL database to manage structured patient, doctor, appointment and consultation information.",
@@ -25,5 +32,6 @@
     "Prepared eight formal systems analysis and design documents covering requirements, business rules, process flows, database design and interface wireframes.",
     "Planned delivery across ten Agile sprints.",
     "Used Git and GitHub for version control and deployed the system live on DigitalOcean."
-  ]
+  ],
+  "display_order": 1
 }
