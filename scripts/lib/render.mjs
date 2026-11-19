@@ -148,7 +148,7 @@ function layout({ site, profile, title, description, pathname, body, projects = 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/site.css?v=3">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
@@ -206,8 +206,8 @@ function layout({ site, profile, title, description, pathname, body, projects = 
       <p><a href="/admin/">Content manager</a></p>
     </div>
   </footer>
-  <script src="/assets/js/search-index.js" defer></script>
-  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/search-index.js?v=3" defer></script>
+  <script src="/assets/js/site.js?v=3" defer></script>
 </body>
 </html>`;
 }
