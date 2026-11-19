@@ -1,12 +1,17 @@
 {
   "name": "Clyde Nefoti",
   "professional_title": "Bachelor of Information Systems | IT and Data Management",
-  "introduction": "Database design, information management, systems analysis, and end-user support from Madang, Papua New Guinea. Final-year studies completed; awaiting graduation.",
+  "introduction": "Database design, information management, systems analysis, and end-user support. Final-year studies completed; awaiting graduation.",
   "biography": "Completed final-year Bachelor of Information Systems studies at Divine Word University, Papua New Guinea, with knowledge of database design, information management and systems analysis.\n\nDeveloped and deployed TeleHealth PNG, a web-based teleconsultation and appointment management system for the Milne Bay Provincial Health Authority, using MySQL, role-based access control and secure information handling practices.\n\nPractical experience with Active Directory and end-user technical support.\n\nProfessional interests include supporting medical and public health research through information technology.\n\nClyde Nefoti is from Milne Bay and Enga Provinces. A system should be clear to use, carefully documented, and ready for the people it is meant to serve.",
   "profile_image": "/uploads/profile/clyde-nefoti.png",
   "profile_image_alt": "Portrait of Clyde Nefoti",
   "location": "Madang, Papua New Guinea",
   "contact_email": "nefoticlyde76@gmail.com",
+  "social": {
+    "github": "https://github.com/nefoticlyde76-dwu",
+    "linkedin": ""
+  },
+  "availability": "",
   "interests": [
     "Health information systems",
     "Medical and public health research",
@@ -14,10 +19,5 @@
     "Cloud computing and digital infrastructure",
     "Graphic design"
   ],
-  "social": {
-    "github": "https://github.com/nefoticlyde76-dwu",
-    "linkedin": ""
-  },
-  "availability": "",
   "published": true
 }
