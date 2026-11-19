@@ -1,0 +1,21 @@
+{
+  "title": "WPU Enterprise Information System",
+  "slug": "wpu-enterprise-information-system",
+  "summary": "A 2026 team project for enrolment, admission, and dormitory management.",
+  "description": "A full-stack enrolment, admission, and dormitory system built with a team for IS403 in 2026. The published project note records Clyde's contribution as the dormitory subsystem.\n\nThe recorded stack is React, TypeScript, Node.js, PostgreSQL, and Docker. No public project URL or repository URL was recorded with the source note.",
+  "main_image": "",
+  "main_image_alt": "",
+  "gallery": [],
+  "technologies": ["React", "TypeScript", "Node.js", "PostgreSQL", "Docker"],
+  "category": "IS403 group project",
+  "role": "Dormitory subsystem",
+  "year": "2026",
+  "status": "Group project",
+  "external_url": "",
+  "github_url": "",
+  "featured": false,
+  "published": true,
+  "visibility": "public",
+  "display_order": 3,
+  "features": []
+}

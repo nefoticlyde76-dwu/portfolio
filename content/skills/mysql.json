@@ -1,0 +1,8 @@
+{
+  "name": "MySQL",
+  "category": "Data Management and Databases",
+  "description": "Used for the TeleHealth PNG database.",
+  "display_order": 1,
+  "published": true,
+  "visibility": "public"
+}

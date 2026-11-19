@@ -1,0 +1,36 @@
+name: Content and build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate content and Decap configuration
+        run: npm run validate
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build the static site
+        run: npm run build
+
+      - name: Verify the generated site
+        run: npm run verify

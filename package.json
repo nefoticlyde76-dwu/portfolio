@@ -1,0 +1,23 @@
+{
+  "name": "clyde-nefoti-portfolio",
+  "private": true,
+  "type": "module",
+  "description": "Static portfolio for Clyde Nefoti. Netlify hosts the site, GitHub stores the content, and Decap CMS edits it.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-content.mjs",
+    "validate:content": "node scripts/validate-content.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node scripts/run-tests.mjs",
+    "verify": "node scripts/verify-dist.mjs"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "js-yaml": "^4.1.0",
+    "marked": "^15.0.12",
+    "sanitize-html": "^2.14.0"
+  }
+}

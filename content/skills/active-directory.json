@@ -1,0 +1,8 @@
+{
+  "name": "Active Directory",
+  "category": "IT Tools and Support",
+  "description": "Used during the ICT Services helpdesk placement for identity-verified password resets.",
+  "display_order": 5,
+  "published": true,
+  "visibility": "public"
+}

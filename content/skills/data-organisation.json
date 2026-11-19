@@ -1,0 +1,8 @@
+{
+  "name": "Data organisation and handling",
+  "category": "Data Management and Databases",
+  "description": "Applied to the structured records managed in TeleHealth PNG.",
+  "display_order": 3,
+  "published": true,
+  "visibility": "public"
+}

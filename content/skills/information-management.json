@@ -1,0 +1,8 @@
+{
+  "name": "Information management",
+  "category": "Data Management and Databases",
+  "description": "Part of the Information Systems degree and the TeleHealth record-keeping work.",
+  "display_order": 4,
+  "published": true,
+  "visibility": "public"
+}

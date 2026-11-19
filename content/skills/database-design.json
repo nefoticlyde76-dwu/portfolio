@@ -1,0 +1,8 @@
+{
+  "name": "Database design",
+  "category": "Data Management and Databases",
+  "description": "Used to structure patient, doctor, appointment, and consultation records in TeleHealth PNG.",
+  "display_order": 2,
+  "published": true,
+  "visibility": "public"
+}

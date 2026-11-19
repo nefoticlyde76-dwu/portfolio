@@ -1,0 +1,8 @@
+{
+  "name": "Composer",
+  "category": "IT Tools and Support",
+  "description": "Used to manage PHP dependencies for TeleHealth PNG.",
+  "display_order": 7,
+  "published": true,
+  "visibility": "public"
+}

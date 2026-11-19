@@ -1,0 +1,304 @@
+# Decap CMS 3.18.0. GitHub backend for nefoticlyde76-dwu/portfolio.
+# The OAuth client secret stays in the Netlify UI. Do not put it in this file.
+# Editorial workflow opens pull requests against rebuild/netlify-decap.
+
+backend:
+  name: github
+  repo: nefoticlyde76-dwu/portfolio
+  branch: rebuild/netlify-decap
+  auth_scope: public_repo
+
+publish_mode: editorial_workflow
+locale: en
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: settings
+    label: Site settings
+    editor:
+      preview: false
+    files:
+      - name: profile
+        label: Profile
+        file: content/settings/profile.json
+        format: json
+        media_folder: /public/uploads/profile
+        public_folder: /uploads/profile
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Professional title, name: professional_title, widget: string }
+          - { label: Introduction, name: introduction, widget: text }
+          - { label: Biography, name: biography, widget: text, required: false }
+          - label: Profile image
+            name: profile_image
+            widget: image
+            required: false
+          - { label: Profile image alternative text, name: profile_image_alt, widget: string, required: false }
+          - { label: Location, name: location, widget: string, required: false }
+          - label: Contact email
+            name: contact_email
+            widget: string
+            required: false
+            pattern: ['^$|^[^@\s]+@[^@\s]+\.[^@\s]+$', "Enter a valid email or leave this empty"]
+          - label: Social links
+            name: social
+            widget: object
+            fields:
+              - { label: GitHub URL, name: github, widget: string, required: false }
+              - { label: LinkedIn URL, name: linkedin, widget: string, required: false }
+          - { label: Availability, name: availability, widget: string, required: false }
+          - label: Interests
+            name: interests
+            widget: list
+            required: false
+            field: { label: Interest, name: interest, widget: string }
+          - { label: Published, name: published, widget: boolean, default: true }
+
+      - name: site
+        label: Site
+        file: content/settings/site.json
+        format: json
+        fields:
+          - { label: Site title, name: site_title, widget: string }
+          - { label: Wordmark, name: wordmark, widget: string }
+          - { label: Logo, name: logo, widget: image, required: false }
+          - { label: Hero kicker, name: hero_kicker, widget: string, required: false }
+          - { label: Hero heading, name: hero_heading, widget: string, required: false }
+          - { label: Hero summary, name: hero_summary, widget: text, required: false }
+          - label: Navigation
+            name: navigation
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Path, name: href, widget: string }
+          - label: Footer links
+            name: footer_links
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Path, name: href, widget: string }
+          - { label: Footer text, name: footer_text, widget: text, required: false }
+          - { label: Contact email, name: contact_email, widget: string, required: false }
+          - label: Social links
+            name: social_links
+            widget: list
+            required: false
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: url, widget: string }
+          - { label: SEO title, name: seo_title, widget: string, required: false }
+          - { label: SEO description, name: seo_description, widget: text, required: false }
+          - { label: Canonical site URL, name: canonical_site_url, widget: string, required: false, hint: "https:// address of the live site. Leave empty until the domain is known." }
+          - { label: Copyright text, name: copyright_text, widget: string }
+          - label: Show CV download
+            name: show_cv_download
+            widget: boolean
+            default: false
+            hint: "A public GitHub repository exposes any committed CV even when this is false. Turn this on only after public release is approved in Resume."
+
+      - name: resume
+        label: Resume
+        file: content/settings/resume.json
+        format: json
+        media_folder: /public/uploads/resume
+        public_folder: /uploads/resume
+        fields:
+          - label: CV file
+            name: file
+            widget: file
+            required: false
+            hint: "Do not upload a private CV while this repository is public."
+          - label: Public release approved
+            name: public_release_approved
+            widget: boolean
+            default: false
+          - { label: Notes, name: notes, widget: text, required: false }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: content/projects
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+    media_folder: /public/uploads/projects
+    public_folder: /uploads/projects
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, hint: "Lowercase words separated by hyphens. The filename must match this slug." }
+      - { label: Short summary, name: summary, widget: text }
+      - { label: Full description, name: description, widget: markdown, required: false }
+      - { label: Main image, name: main_image, widget: image, required: false }
+      - { label: Main image alternative text, name: main_image_alt, widget: string, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Image, name: image, widget: image }
+          - { label: Alternative text, name: alt, widget: string }
+      - label: Technologies
+        name: technologies
+        widget: list
+        required: false
+        field: { label: Technology, name: technology, widget: string }
+      - { label: Category, name: category, widget: string, required: false }
+      - { label: Role, name: role, widget: string, required: false }
+      - { label: Year, name: year, widget: string, required: false }
+      - { label: Status, name: status, widget: string, required: false }
+      - { label: External project URL, name: external_url, widget: string, required: false }
+      - { label: GitHub repository URL, name: github_url, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Published, name: published, widget: boolean, default: false }
+      - label: Visibility
+        name: visibility
+        widget: select
+        options: [public, private]
+        default: private
+      - label: What it includes
+        name: features
+        widget: list
+        required: false
+        field: { label: Feature, name: feature, widget: string }
+      - { label: Display order, name: display_order, widget: number, value_type: int, min: 0, default: 0 }
+
+  - name: certificates
+    label: Certificates
+    folder: content/certificates
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+    media_folder: /public/uploads/certificates
+    public_folder: /uploads/certificates
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Issuing organization, name: issuing_organization, widget: string }
+      - { label: Date, name: date, widget: string, required: false, hint: "Use a full date when it is known. A year alone is acceptable when the certificate does not show a day." }
+      - { label: Credential ID, name: credential_id, widget: string, required: false }
+      - { label: Credential URL, name: credential_url, widget: string, required: false }
+      - { label: Certificate file, name: file, widget: file, required: false }
+      - { label: Display image, name: display_image, widget: image, required: false }
+      - { label: Description, name: description, widget: markdown, required: false }
+      - { label: Published, name: published, widget: boolean, default: false }
+      - { label: Visibility, name: visibility, widget: select, options: [public, private], default: private }
+      - { label: Display order, name: display_order, widget: number, value_type: int, min: 0, default: 0 }
+
+  - name: design
+    label: Graphic design
+    folder: content/design
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+    media_folder: /public/uploads/design
+    public_folder: /uploads/design
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Category, name: category, widget: string }
+      - { label: Description, name: description, widget: markdown, required: false }
+      - { label: Main image, name: image, widget: image, required: false }
+      - { label: Alternative text, name: image_alt, widget: string, required: false }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        fields:
+          - { label: Image, name: image, widget: image }
+          - { label: Alternative text, name: alt, widget: string }
+      - { label: Year, name: year, widget: string, required: false }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Published, name: published, widget: boolean, default: false }
+      - { label: Visibility, name: visibility, widget: select, options: [public, private], default: private }
+      - { label: Display order, name: display_order, widget: number, value_type: int, min: 0, default: 0 }
+
+  - name: skills
+    label: Skills
+    folder: content/skills
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    identifier_field: name
+    summary: "{{name}}"
+    editor:
+      preview: false
+    fields:
+      - { label: Skill name, name: name, widget: string }
+      - { label: Category, name: category, widget: string }
+      - { label: Description, name: description, widget: text, required: false }
+      - { label: Display order, name: display_order, widget: number, value_type: int, min: 0, default: 0 }
+      - { label: Published, name: published, widget: boolean, default: false }
+      - { label: Visibility, name: visibility, widget: select, options: [public, private], default: private }
+
+  - name: experience
+    label: Experience
+    folder: content/experience
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    identifier_field: position
+    summary: "{{position}}"
+    editor:
+      preview: false
+    fields:
+      - { label: Position, name: position, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Organization, name: organization, widget: string }
+      - { label: Start date, name: start_date, widget: string, required: false, hint: "Leave empty when only a period label is known." }
+      - { label: End date, name: end_date, widget: string, required: false }
+      - { label: Period label, name: period_label, widget: string, required: false }
+      - { label: Description, name: description, widget: markdown, required: false }
+      - label: Responsibilities
+        name: responsibilities
+        widget: list
+        required: false
+        field: { label: Responsibility, name: responsibility, widget: string }
+      - label: Achievements
+        name: achievements
+        widget: list
+        required: false
+        field: { label: Achievement, name: achievement, widget: string }
+      - { label: Display order, name: display_order, widget: number, value_type: int, min: 0, default: 0 }
+      - { label: Published, name: published, widget: boolean, default: false }
+      - { label: Visibility, name: visibility, widget: select, options: [public, private], default: private }
+
+  - name: education
+    label: Education
+    folder: content/education
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    identifier_field: qualification
+    summary: "{{qualification}}"
+    editor:
+      preview: false
+    fields:
+      - { label: Institution, name: institution, widget: string }
+      - { label: Qualification, name: qualification, widget: string }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Program, name: program, widget: string, required: false }
+      - { label: Dates, name: dates, widget: string, required: false, hint: "Use the study period only. Do not add a graduation date unless formal graduation has occurred." }
+      - { label: Description, name: description, widget: markdown, required: false }
+      - { label: Display order, name: display_order, widget: number, value_type: int, min: 0, default: 0 }
+      - { label: Published, name: published, widget: boolean, default: false }
+      - { label: Visibility, name: visibility, widget: select, options: [public, private], default: private }

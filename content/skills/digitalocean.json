@@ -1,0 +1,8 @@
+{
+  "name": "DigitalOcean",
+  "category": "IT Tools and Support",
+  "description": "The TeleHealth PNG system was deployed live on DigitalOcean.",
+  "display_order": 9,
+  "published": true,
+  "visibility": "public"
+}
