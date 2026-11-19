@@ -61,3 +61,139 @@ if (form) {
       });
   });
 }
+
+const menuToggle = document.querySelector("[data-menu-toggle]");
+const mobileNav = document.querySelector("[data-mobile-nav]");
+
+function setMenu(open) {
+  if (!menuToggle || !mobileNav) return;
+  mobileNav.hidden = !open;
+  menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  if (open) mobileNav.querySelector("a")?.focus();
+}
+
+if (menuToggle && mobileNav) {
+  menuToggle.addEventListener("click", () => setMenu(mobileNav.hidden));
+  mobileNav.addEventListener("click", (event) => {
+    if (event.target.closest("a")) setMenu(false);
+  });
+}
+
+const searchLayer = document.querySelector("[data-search-layer]");
+const searchInput = document.querySelector("[data-search-input]");
+const searchResults = document.querySelector("[data-search-results]");
+const searchStatus = document.querySelector("[data-search-status]");
+const searchClear = document.querySelector("[data-search-clear]");
+let searchMatches = [];
+let searchActive = -1;
+let searchReturn = null;
+
+function renderSearch(query) {
+  const term = query.trim().toLowerCase();
+  const source = Array.isArray(window.PORTFOLIO_SEARCH) ? window.PORTFOLIO_SEARCH : [];
+  searchMatches = term.length < 2
+    ? []
+    : source
+      .filter((item) => `${item.title} ${item.text}`.toLowerCase().includes(term))
+      .sort((a, b) => Number(!a.title.toLowerCase().includes(term)) - Number(!b.title.toLowerCase().includes(term)))
+      .slice(0, 8);
+  searchActive = searchMatches.length ? 0 : -1;
+  searchResults.replaceChildren();
+  searchMatches.forEach((item, index) => {
+    const option = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = item.url;
+    link.id = `search-option-${index}`;
+    link.setAttribute("role", "option");
+    if (index === searchActive) link.className = "is-active";
+    const kind = document.createElement("span");
+    kind.className = "search-type";
+    kind.textContent = item.type;
+    const title = document.createElement("span");
+    title.textContent = item.title;
+    link.append(title, kind);
+    option.append(link);
+    searchResults.append(option);
+  });
+  if (searchStatus) {
+    searchStatus.textContent = term.length < 2
+      ? "Type at least two characters."
+      : (searchMatches.length ? `${searchMatches.length} published results.` : "No matching published records.");
+  }
+  searchInput.setAttribute("aria-activedescendant", searchActive >= 0 ? `search-option-${searchActive}` : "");
+}
+
+function markActive() {
+  [...searchResults.querySelectorAll("a")].forEach((link, index) => {
+    link.classList.toggle("is-active", index === searchActive);
+  });
+  searchInput.setAttribute("aria-activedescendant", searchActive >= 0 ? `search-option-${searchActive}` : "");
+}
+
+function openSearch() {
+  if (!searchLayer || !searchInput) return;
+  searchReturn = document.activeElement;
+  searchLayer.hidden = false;
+  searchInput.value = "";
+  renderSearch("");
+  searchInput.focus();
+}
+
+function closeSearch() {
+  if (!searchLayer) return;
+  searchLayer.hidden = true;
+  if (searchReturn && typeof searchReturn.focus === "function") searchReturn.focus();
+}
+
+document.querySelectorAll("[data-search-open]").forEach((button) => {
+  button.addEventListener("click", openSearch);
+});
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => renderSearch(searchInput.value));
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      if (!searchMatches.length) return;
+      searchActive = event.key === "ArrowDown"
+        ? (searchActive + 1) % searchMatches.length
+        : (searchActive - 1 + searchMatches.length) % searchMatches.length;
+      markActive();
+    }
+    if (event.key === "Enter" && searchMatches[searchActive]) {
+      event.preventDefault();
+      window.location.assign(searchMatches[searchActive].url);
+    }
+  });
+}
+
+if (searchClear && searchInput) {
+  searchClear.addEventListener("click", () => {
+    searchInput.value = "";
+    renderSearch("");
+    searchInput.focus();
+  });
+}
+
+if (searchLayer) {
+  searchLayer.addEventListener("click", (event) => {
+    if (event.target === searchLayer) closeSearch();
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  const command = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k";
+  if (command) {
+    event.preventDefault();
+    if (searchLayer?.hidden) openSearch();
+    else closeSearch();
+    return;
+  }
+  if (event.key !== "Escape") return;
+  if (searchLayer && !searchLayer.hidden) closeSearch();
+  else if (mobileNav && !mobileNav.hidden) {
+    setMenu(false);
+    menuToggle?.focus();
+  }
+});

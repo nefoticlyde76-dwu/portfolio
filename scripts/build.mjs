@@ -1,8 +1,8 @@
 import { cp, mkdir, rm, writeFile, access } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { ROOT, cvIsReleased, loadContent } from "./lib/content.mjs";
-import { renderSite } from "./lib/render.mjs";
+import { ROOT, cvIsReleased, loadContent, untrackedPaths } from "./lib/content.mjs";
+import { buildSearchIndex, renderSite } from "./lib/render.mjs";
 
 const DIST = path.join(ROOT, "dist");
 
@@ -15,7 +15,7 @@ async function exists(file) {
   }
 }
 
-async function copyPublic(releaseCv) {
+async function copyPublic(releaseCv, untracked) {
   const source = path.join(ROOT, "public");
   await cp(source, DIST, {
     recursive: true,
@@ -24,6 +24,7 @@ async function copyPublic(releaseCv) {
       if (!relative) return true;
       if (relative === "uploads" || relative.startsWith(`uploads${path.sep}`) === false && relative === "uploads") return true;
       const normalised = relative.split(path.sep).join("/");
+      if (untracked.has(`public/${normalised}`)) return false;
       if (normalised === "uploads/resume" || normalised.startsWith("uploads/resume/")) {
         if (normalised.endsWith(".gitkeep")) return false;
         return releaseCv;
@@ -60,9 +61,10 @@ export async function build() {
   }
 
   const releaseCv = cvIsReleased(content.site, content.resume);
+  const untracked = untrackedPaths();
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
-  await copyPublic(releaseCv);
+  await copyPublic(releaseCv, untracked);
   await cp(path.join(ROOT, "admin"), path.join(DIST, "admin"), { recursive: true });
   await copyVendor();
 
@@ -72,6 +74,11 @@ export async function build() {
     await mkdir(path.dirname(destination), { recursive: true });
     await writeFile(destination, page.html);
   }
+  await mkdir(path.join(DIST, "assets/js"), { recursive: true });
+  await writeFile(
+    path.join(DIST, "assets/js/search-index.js"),
+    `window.PORTFOLIO_SEARCH = ${JSON.stringify(buildSearchIndex(content))};\n`,
+  );
 
   return {
     pages: pages.map((page) => page.path),

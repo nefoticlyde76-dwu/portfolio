@@ -1,8 +1,22 @@
+import { execFileSync } from "node:child_process";
 import { readdir, readFile, access } from "node:fs/promises";
 import path from "node:path";
 import { safeUrl } from "./html.mjs";
 
 export const ROOT = path.resolve(import.meta.dirname, "../..");
+
+export function untrackedPaths() {
+  try {
+    const output = execFileSync("git", ["ls-files", "--others", "--exclude-standard"], {
+      cwd: ROOT,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    });
+    return new Set(output.split(/\r?\n/).filter(Boolean).map((item) => item.split("\\").join("/")));
+  } catch {
+    return new Set();
+  }
+}
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
