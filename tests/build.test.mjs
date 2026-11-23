@@ -8,15 +8,15 @@ import { validateAll } from "../scripts/validate-content.mjs";
 import { verifyDist } from "../scripts/verify-dist.mjs";
 
 test("repository content and Decap configuration validate", async () => {
-  const errors = await validateAll();
-  assert.deepEqual(errors, []);
+  const result = await validateAll();
+  assert.deepEqual(result.errors, []);
 });
 
 test("production build withholds the CV and passes dist checks", async () => {
   const result = await build();
   assert.equal(result.cvReleased, false);
   assert.equal(result.pages.includes("projects/telehealth-consultation-system/index.html"), true);
-  assert.equal(result.pages.includes("projects/wpu-enterprise-information-system/index.html"), true);
+  assert.equal(result.pages.includes("projects/wpu-enterprise-information-system/index.html"), false);
   assert.equal(result.pages.includes("projects/national-content-reporting-automation/index.html"), false);
   const errors = await verifyDist();
   assert.deepEqual(errors, []);

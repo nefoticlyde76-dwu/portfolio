@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { cvIsReleased, isPublic, publicEntries, validateRecord } from "../scripts/lib/content.mjs";
+import { cvIsReleased, detachMissingMedia, isPublic, publicEntries, validateRecord } from "../scripts/lib/content.mjs";
 import { escapeHtml, safeUrl } from "../scripts/lib/html.mjs";
 import { renderMarkdown } from "../scripts/lib/markdown.mjs";
 
@@ -39,6 +39,18 @@ test("duplicate and malformed project records are rejected", () => {
     { file: "content/projects/telehealth.json", required: ["title", "slug", "summary", "published", "visibility", "display_order"], expectSlug: true },
   );
   assert.equal(errors.length >= 3, true);
+});
+
+test("a missing upload is removed from the entry instead of blocking publish", () => {
+  const entry = {
+    profile_image: "/uploads/profile/clyde-nefoti.png",
+    main_image: "/uploads/projects/telehealth-consultation-homepage.png",
+    gallery: [{ image: "/uploads/profile/clyde-nefoti.png", alt: "Portrait" }],
+  };
+  detachMissingMedia(entry, "/uploads/profile/clyde-nefoti.png");
+  assert.equal(entry.profile_image, "");
+  assert.equal(entry.main_image, "/uploads/projects/telehealth-consultation-homepage.png");
+  assert.deepEqual(entry.gallery, []);
 });
 
 test("CV stays withheld unless both approvals are true", () => {

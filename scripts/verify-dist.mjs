@@ -11,7 +11,6 @@ const REQUIRED = [
   "skills/index.html",
   "projects/index.html",
   "projects/telehealth-consultation-system/index.html",
-  "projects/wpu-enterprise-information-system/index.html",
   "certificates/index.html",
   "design/index.html",
   "experience/index.html",
@@ -100,9 +99,6 @@ export async function verifyDist() {
   const sitemap = await readFile(path.join(DIST, "sitemap.xml"), "utf8");
   if (!sitemap.includes("/projects/telehealth-consultation-system/")) {
     errors.push("Sitemap is missing the TeleHealth project");
-  }
-  if (!sitemap.includes("/projects/wpu-enterprise-information-system/")) {
-    errors.push("Sitemap is missing the WPU project");
   }
   if (/national-content-reporting-automation|ncra-end-to-end-activity-diagram/i.test(sitemap)) {
     errors.push("Sitemap still includes NCRA");

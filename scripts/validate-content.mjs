@@ -52,12 +52,18 @@ export async function validateDecapConfig() {
 export async function validateAll() {
   const content = await loadContent();
   const configErrors = await validateDecapConfig();
-  return [...content.errors, ...configErrors];
+  return {
+    errors: [...content.errors, ...configErrors],
+    warnings: content.warnings || [],
+  };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   validateAll()
-    .then((errors) => {
+    .then(({ errors, warnings }) => {
+      if (warnings.length) {
+        console.warn(warnings.map((line) => `Warning: ${line}`).join("\n"));
+      }
       if (errors.length) {
         console.error(errors.map((line) => `- ${line}`).join("\n"));
         process.exitCode = 1;

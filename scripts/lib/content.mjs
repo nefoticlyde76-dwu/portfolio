@@ -190,6 +190,19 @@ function isSafeInternalPath(value) {
     && !value.includes("\\");
 }
 
+// Decap's media library commits a file delete on its own. The entry JSON can
+// still point at that file. Drop the reference instead of failing the build,
+// or Netlify keeps the previous deploy and later published edits never appear.
+export function detachMissingMedia(entry, value) {
+  if (!entry || typeof entry !== "object") return;
+  for (const key of ["profile_image", "main_image", "image", "file", "display_image", "logo"]) {
+    if (entry[key] === value) entry[key] = "";
+  }
+  if (Array.isArray(entry.gallery)) {
+    entry.gallery = entry.gallery.filter((item) => item?.image !== value);
+  }
+}
+
 async function readJson(file) {
   const source = await readFile(file, "utf8");
   try {
@@ -244,6 +257,7 @@ async function readFolder(collection) {
 
 export async function loadContent() {
   const errors = [];
+  const warnings = [];
   const content = {};
 
   const profile = await readJson(path.join(ROOT, "content/settings/profile.json"));
@@ -295,6 +309,8 @@ export async function loadContent() {
     ...FOLDER_COLLECTIONS.flatMap((collection) => content[collection.key] || []),
   ].filter(Boolean);
 
+  const approvedCv = resume.value?.file && cvIsReleased(site.value, resume.value) ? resume.value.file : "";
+
   for (const entry of mediaOwners) {
     for (const media of mediaFields(entry)) {
       if (!isSafeInternalPath(media.value)) continue;
@@ -302,18 +318,20 @@ export async function loadContent() {
       try {
         await access(path.join(ROOT, "public", relative));
       } catch {
-        errors.push(`${media.label}: missing media file public/${relative}`);
+        if (media.value === approvedCv) continue;
+        warnings.push(`${media.label}: missing media file public/${relative}; omitted so the rest of the published content can deploy`);
+        detachMissingMedia(entry, media.value);
       }
     }
   }
 
-  if (resume.value?.file && cvIsReleased(site.value, resume.value)) {
+  if (approvedCv) {
     try {
-      await access(path.join(ROOT, "public", resume.value.file.replace(/^\/+/, "")));
+      await access(path.join(ROOT, "public", approvedCv.replace(/^\/+/, "")));
     } catch {
       errors.push("content/settings/resume.json: approved CV file is missing");
     }
   }
 
-  return { content, errors };
+  return { content, errors, warnings };
 }

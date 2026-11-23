@@ -53,7 +53,10 @@ async function copyVendor() {
 }
 
 export async function build() {
-  const { content, errors } = await loadContent();
+  const { content, errors, warnings } = await loadContent();
+  if (warnings.length) {
+    console.warn(warnings.map((line) => `Warning: ${line}`).join("\n"));
+  }
   if (errors.length) {
     const error = new Error(`Content validation failed\n${errors.map((line) => `- ${line}`).join("\n")}`);
     error.errors = errors;
@@ -83,6 +86,7 @@ export async function build() {
   return {
     pages: pages.map((page) => page.path),
     cvReleased: releaseCv,
+    warnings,
   };
 }
 
