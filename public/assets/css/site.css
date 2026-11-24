@@ -143,6 +143,11 @@ h2 {
 .site-header .wordmark,
 .site-header .wordmark-tag { color: var(--brand); }
 
+.desktop-nav {
+  flex: 1;
+  min-width: 0;
+}
+
 .desktop-nav ul,
 .mobile-nav ul,
 .category-strip ul,
@@ -156,14 +161,18 @@ h2 {
   list-style: none;
 }
 
+.desktop-nav ul {
+  flex-wrap: wrap;
+}
+
 .desktop-nav a {
   position: relative;
   display: inline-flex;
-  padding: 0.5rem 0.38rem;
+  padding: 0.5rem 0.22rem;
   color: var(--secondary);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -171,8 +180,8 @@ h2 {
 .desktop-nav a[aria-current="page"]::after {
   content: "";
   position: absolute;
-  left: 0.38rem;
-  right: 0.38rem;
+  left: 0.22rem;
+  right: 0.22rem;
   bottom: 0.15rem;
   height: 2px;
   background: var(--brand);

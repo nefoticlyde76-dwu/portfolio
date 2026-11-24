@@ -127,8 +127,15 @@ export function validateRecord(entry, { file, required, expectSlug }) {
     if (typeof entry.slug === "string") entry.slug = entry.slug.trim();
     if (typeof entry.slug !== "string" || !SLUG_PATTERN.test(entry.slug)) {
       errors.push(`${where}: slug must use lowercase letters, numbers, and hyphens`);
-    } else if (path.basename(file, ".json") !== entry.slug) {
-      errors.push(`${where}: filename must match slug ${entry.slug}`);
+    } else if (file && path.basename(file, ".json") !== entry.slug) {
+      // Decap keeps the original filename when the slug field changes. Use the
+      // filename so that one field cannot fail the Netlify build.
+      const filenameSlug = path.basename(file, ".json");
+      if (SLUG_PATTERN.test(filenameSlug)) {
+        entry.slug = filenameSlug;
+      } else {
+        errors.push(`${where}: filename must match slug ${entry.slug}`);
+      }
     }
   }
 

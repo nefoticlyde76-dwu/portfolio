@@ -62,6 +62,7 @@ const PRIMARY_NAV = [
   { label: "Experience", href: "/experience/" },
   { label: "Education", href: "/education/" },
   { label: "Certificates", href: "/certificates/" },
+  { label: "Graphic design", href: "/design/" },
   { label: "Contact", href: "/contact/" },
 ];
 
@@ -73,6 +74,7 @@ const CATEGORY_NAV = [
   { label: "Data Management", href: "/skills/#data-management-and-databases" },
   { label: "IT Support", href: "/skills/#it-tools-and-support" },
   { label: "Digital Design", href: "/skills/#digital-design" },
+  { label: "Graphic design", href: "/design/" },
   { label: "Experience", href: "/experience/" },
   { label: "Education", href: "/education/" },
   { label: "Contact", href: "/contact/" },
@@ -148,7 +150,7 @@ function layout({ site, profile, title, description, pathname, body, projects = 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css">
-  <link rel="stylesheet" href="/assets/css/site.css?v=3">
+  <link rel="stylesheet" href="/assets/css/site.css?v=4">
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>

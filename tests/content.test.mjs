@@ -49,6 +49,22 @@ test("a trailing space in a slug does not reject the record", () => {
   assert.equal(entry.slug, "final-year-project-completion-certificate");
 });
 
+test("a slug that does not match the filename still publishes under the filename", () => {
+  const entry = {
+    slug: "21st-information-systems-polo-shirt",
+    published: true,
+    visibility: "public",
+    display_order: 1,
+  };
+  const errors = validateRecord(entry, {
+    file: "content/design/eco-friendly-tableware-logo.json",
+    required: [],
+    expectSlug: true,
+  });
+  assert.deepEqual(errors, []);
+  assert.equal(entry.slug, "eco-friendly-tableware-logo");
+});
+
 test("duplicate and malformed project records are rejected", () => {
   const errors = validateRecord(
     { title: "A", slug: "Wrong", summary: "S", published: "yes", visibility: "secret", display_order: 1.5 },
