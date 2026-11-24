@@ -4,6 +4,6 @@
   "issuing_organization": "Department Of Education ",
   "display_image": "/uploads/certificates/screenshot-2026-11-24-111814.png",
   "published": false,
-  "visibility": "private",
-  "display_order": 0
+  "visibility": "public",
+  "display_order": 3
 }
