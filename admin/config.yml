@@ -184,7 +184,11 @@ collections:
       preview: false
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
+      - label: Slug
+        name: slug
+        widget: string
+        hint: "Lowercase words separated by hyphens, matching the filename. For example, grade-10-certificate."
+        pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', "Use lowercase letters, numbers, and hyphens"]
       - { label: Issuing organization, name: issuing_organization, widget: string }
       - { label: Date, name: date, widget: string, required: false, hint: "Use a full date when it is known. A year alone is acceptable when the certificate does not show a day." }
       - { label: Credential ID, name: credential_id, widget: string, required: false }
