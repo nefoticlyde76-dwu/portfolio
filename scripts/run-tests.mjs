@@ -5,6 +5,7 @@ import { ROOT } from "./lib/content.mjs";
 const files = [
   "tests/content.test.mjs",
   "tests/security.test.mjs",
+  "tests/github-fetch.test.mjs",
   "tests/build.test.mjs",
 ];
 
