@@ -1,14 +1,14 @@
 {
-  "title": "Eco-friendly tableware logo contest entry",
-  "slug": "eco-friendly-tableware-logo",
-  "category": "Logo",
-  "description": "A logo design contest entry for an eco-friendly tableware brand. This entry stays unpublished until an image is available.",
-  "image": "",
+  "title": "21st Information Systems Polo Shirt",
+  "slug": "21st-information-systems-polo-shirt",
+  "category": "Polo Shirt",
+  "description": "Designed the Polo Shirt for the 21st Information Systems Symposium 2026",
+  "image": "/uploads/design/symposium-polo.png",
   "image_alt": "",
   "gallery": [],
   "year": "",
-  "featured": false,
-  "published": false,
-  "visibility": "private",
-  "display_order": 2
+  "featured": true,
+  "published": true,
+  "visibility": "public",
+  "display_order": 1
 }
