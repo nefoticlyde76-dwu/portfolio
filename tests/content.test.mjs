@@ -33,6 +33,22 @@ test("public entries exclude drafts and private records", () => {
   assert.equal(isPublic(entries[0]), true);
 });
 
+test("a trailing space in a slug does not reject the record", () => {
+  const entry = {
+    slug: "final-year-project-completion-certificate ",
+    published: true,
+    visibility: "public",
+    display_order: 6,
+  };
+  const errors = validateRecord(entry, {
+    file: "content/certificates/final-year-project-completion-certificate.json",
+    required: [],
+    expectSlug: true,
+  });
+  assert.deepEqual(errors, []);
+  assert.equal(entry.slug, "final-year-project-completion-certificate");
+});
+
 test("duplicate and malformed project records are rejected", () => {
   const errors = validateRecord(
     { title: "A", slug: "Wrong", summary: "S", published: "yes", visibility: "secret", display_order: 1.5 },

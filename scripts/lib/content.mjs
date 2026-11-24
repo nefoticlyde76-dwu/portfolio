@@ -122,6 +122,9 @@ export function validateRecord(entry, { file, required, expectSlug }) {
   }
 
   if (expectSlug) {
+    // Decap sometimes saves a trailing space in the slug. That must not fail
+    // the whole Netlify build, or every certificate published after it stays offline.
+    if (typeof entry.slug === "string") entry.slug = entry.slug.trim();
     if (typeof entry.slug !== "string" || !SLUG_PATTERN.test(entry.slug)) {
       errors.push(`${where}: slug must use lowercase letters, numbers, and hyphens`);
     } else if (path.basename(file, ".json") !== entry.slug) {
