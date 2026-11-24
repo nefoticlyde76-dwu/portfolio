@@ -7,8 +7,8 @@
   "image_alt": "",
   "gallery": [],
   "year": "",
-  "featured": false,
-  "published": false,
-  "visibility": "private",
-  "display_order": 1
+  "featured": true,
+  "published": true,
+  "visibility": "public",
+  "display_order": 2
 }
